@@ -16,7 +16,8 @@ public class ServiceApplication {
     @Bean
     public RestTemplate getRestTemplate(){
         return new RestTemplate();
-
+        //RestTemplate för att göra anrop och hämta info
+        // från andra applikationer
     }
 
 

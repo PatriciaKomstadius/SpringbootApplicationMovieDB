@@ -6,21 +6,22 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import se.iths.demo.dtos.MovieDto;
 import se.iths.demo.services.MovieService;
+import se.iths.demo.services.Service;
 
 import java.util.List;
 
 //Controller klass
 @RestController
-public class Controller {
+public class MovieController {
     //Skapar ett fält för MovieRepository, så man sedan kan göra dependency injections
 
-    private MovieService movieService;
+    private Service service;
 
     //Skapar en konstruktor med annotation Autowired,
     //gör att alla metoder blir tillgängliga i klassen
     @Autowired
-    public Controller(MovieService movieService) {
-        this.movieService = movieService;
+    public MovieController(Service service) {
+        this.service = service;
     }
 
 
@@ -33,7 +34,7 @@ public class Controller {
     //GET SHOW ALL MOVIES
     @GetMapping("/movies")
     public List<MovieDto> all() {
-        return movieService.getAllMovies();
+        return service.getAllMovies();
         //Här ställs frågan att hitta alla när klienten ställer frågan /movies
         // konverteras automatisk till json av springboot
     }
@@ -42,7 +43,7 @@ public class Controller {
     //PathVariable, visar att värdet på variabel Long id finns i url:n
     @GetMapping("/movies/{id}")
     public MovieDto one(@PathVariable Long id) {
-        return movieService.getOne(id)
+        return service.getOne(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Id " + id + " not found."));
     }
@@ -52,21 +53,21 @@ public class Controller {
     @PostMapping("/movies")
     @ResponseStatus(HttpStatus.CREATED) //ändrar till http status 201 created
     public MovieDto create(@RequestBody MovieDto movie) { //@RequestBody hämtar sin info från inkommande body i json
-        return movieService.createMovie(movie); //returnerar objektet med det autogenererade id:t
+        return service.createMovie(movie); //returnerar objektet med det autogenererade id:t
     }
 
     //SEARCH FOR TITLES
     @GetMapping("/movies/titles")
     @ResponseBody
     public List<MovieDto> getMovieByTitle(@RequestParam String title) {
-        return movieService.getTitle(title);
+        return service.getTitle(title);
     }
 
     //SEARCH BY GENRE
     @GetMapping("/movies/genre")
     @ResponseBody
     public List<MovieDto> findAllByGenre (@RequestParam String genre) {
-        return movieService.getAllByGenre(genre);
+        return service.getAllByGenre(genre);
     }
 
     /*
@@ -82,7 +83,7 @@ public class Controller {
         //personService.deleteById(id);
         //->Skapa public void delete(Long id) i ny klass PersonService
         //
-        movieService.deleteMovie(id);
+        service.deleteMovie(id);
     }
 
     //DELETE ID
@@ -91,7 +92,7 @@ public class Controller {
         //personService.deleteById(id);
         //->Skapa public void delete(Long id) i ny klass PersonService
         //404 not found
-        movieService.deleteMovie(id);
+        service.deleteMovie(id);
         //.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
           //      "Id " + id + " not found."));
     }
@@ -100,13 +101,13 @@ public class Controller {
     //PUT använd 404 not found
     @PutMapping("/movies/{id}")
     public MovieDto replace(@RequestBody MovieDto movieDto, @PathVariable Long id){
-        return movieService.replace(id, movieDto);
+        return service.replace(id, movieDto);
     }
 
     //PATCH använd 404 not found
     @PatchMapping("/movies/{id}")
     public MovieDto update(@RequestBody MovieDto movieDto, @PathVariable Long id){
-        return movieService.update(id, movieDto);
+        return service.update(id, movieDto);
     }
 
 

@@ -14,7 +14,7 @@ import java.util.Optional;
 //Service mellan Controllern och DB
 // sköter validering av inskickad info
 @Service
-public class MovieService {
+public class MovieService implements se.iths.demo.services.Service {
 
     private final MovieMapper movieMapper;
     private MovieRepository movieRepository;
@@ -26,17 +26,20 @@ public class MovieService {
     }
 
     //hämta alla filmer, all();
+    @Override
     public List<MovieDto> getAllMovies() {
         return movieMapper.mapp(movieRepository.findAll());
     }
 
     //hämta en film, one(Long id);
+    @Override
     public Optional<MovieDto> getOne(Long id) {
         //map from Movie to MovieDto
         return movieMapper.mapp(movieRepository.findById(id));
     }
 
     //Skapa ny film, create(Movie movie);
+    @Override
     public MovieDto createMovie(MovieDto movie) {
         //valideringskod
         if (movie.getTitle().isEmpty())
@@ -47,10 +50,12 @@ public class MovieService {
         return movieMapper.mapp(movieRepository.save(movieMapper.mapp(movie)));
     }
 
+    @Override
     public List<MovieDto> getTitle(String title) {
         return movieMapper.mapp(movieRepository.findByTitle(title));
     }
 
+    @Override
     public List<MovieDto> getAllByGenre(String genre) {
         return movieMapper.mapp(movieRepository.findAllByGenre(genre));
     }
@@ -70,10 +75,12 @@ public class MovieService {
     }*/
 
 
+    @Override
     public void deleteMovie(Long id) {
         movieRepository.deleteById(id);
     }
 
+    @Override
     public MovieDto replace(Long id, MovieDto movieDto) {
         Optional<Movie> movie = movieRepository.findById(id); //kopierar över info till movieobjektet
         if (movie.isPresent()) {
@@ -87,6 +94,7 @@ public class MovieService {
         }
     }
     //Ev skapa ny klass för att enbart uppdatera ex genre
+    @Override
     public MovieDto update(Long id, MovieDto movieDto) {
         Optional<Movie> movie = movieRepository.findById(id); //kopierar över info till movieobjektet
         if (movie.isPresent()) {
