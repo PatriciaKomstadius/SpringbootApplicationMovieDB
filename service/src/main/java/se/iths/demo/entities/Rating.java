@@ -1,4 +1,4 @@
-package se.iths.demo;
+package se.iths.demo.entities;
 
 public class Rating {
 

@@ -1,4 +1,4 @@
-package se.iths.demo;
+package se.iths.demo.entities;
 
 
 import org.springframework.context.annotation.Bean;

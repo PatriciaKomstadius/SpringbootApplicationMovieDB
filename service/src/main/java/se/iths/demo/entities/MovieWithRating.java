@@ -1,15 +1,9 @@
-package se.iths.demo;
+package se.iths.demo.entities;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import se.iths.demo.entities.Movie;
+import se.iths.demo.entities.Rating;
 
 public class MovieWithRating {
 
@@ -26,7 +20,7 @@ public class MovieWithRating {
 
 
     //OK FUNKAR
-    static String getTitleAndRating(Long id, Movie[] movies, Rating[] ratings) {
+   public static String getTitleAndRating(Long id, Movie[] movies, Rating[] ratings) {
         for (Movie m : movies) {
             for (Rating r : ratings) {
                 if (id.equals(m.getId()) && id.equals(r.getId())) {
