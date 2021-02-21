@@ -20,14 +20,14 @@ public class ConsumeWebServices {
     //VISAR RATING FÖR ALLA FILMER
     @GetMapping("template/getRatings")
     public String getFromUrl() throws JsonProcessingException {
-        return restTemplate.getForObject("http://localhost:5080/ratings", String.class);
+        return restTemplate.getForObject("http://localhost:5060/ratings", String.class);
     }
 
     //VISAR FILMER OCH RATINGS I JSON, EJ PATCHAT
     @GetMapping("template/movies/info")
     public String allInfo() {
         return restTemplate.getForObject("http://localhost:5050/movies", String.class)
-                + restTemplate.getForObject("http://localhost:5080/ratings", String.class);
+                + restTemplate.getForObject("http://localhost:5060/ratings", String.class);
     }
 
     //RETURNERAR TITEL FRÅN ARRAY PÅ SÖKT ID
@@ -46,7 +46,7 @@ public class ConsumeWebServices {
     @GetMapping("template/ratings/{id}")
     public String getTitleAndRating(@PathVariable Long id) {
         Movie[] movies = restTemplate.getForObject("http://localhost:5050/movies", Movie[].class);
-        Rating[] ratings = restTemplate.getForObject("http://localhost:5080/ratings", Rating[].class);
+        Rating[] ratings = restTemplate.getForObject("http://localhost:5060/ratings", Rating[].class);
         String movie = MovieWithRating.getTitleAndRating(id, movies, ratings);
         if (movie != null) return movie;
         return "Couldn't find movie with id " + id;

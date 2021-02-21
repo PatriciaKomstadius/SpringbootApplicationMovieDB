@@ -22,7 +22,7 @@ public class MovieWithRating {
     RestTemplate restTemplate;
 
     Movie[] movies = restTemplate.getForObject("http://localhost:5050/movies", Movie[].class);
-    Rating[] ratings = restTemplate.getForObject("http://localhost:5080/ratings", Rating[].class);
+    Rating[] ratings = restTemplate.getForObject("http://localhost:5060/ratings", Rating[].class);
 
 
     //OK FUNKAR
