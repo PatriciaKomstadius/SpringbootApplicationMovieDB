@@ -25,13 +25,7 @@ public class MovieController {
     }
 
 
-    //TEST
-    @GetMapping("/hello")
-    public String sayHello() {
-        return "Hello World";
-    }
-
-    //GET SHOW ALL MOVIES
+    //GET ALL
     @GetMapping("/movies")
     public List<MovieDto> all() {
         return service.getAllMovies();
@@ -86,7 +80,7 @@ public class MovieController {
         service.deleteMovie(id);
     }
 
-    //DELETE ID
+    //DELETE ID - TA BORT?
     @DeleteMapping("/movies/delete/{id}")
    public void deleteMovieById(@PathVariable Long id) {
         //personService.deleteById(id);

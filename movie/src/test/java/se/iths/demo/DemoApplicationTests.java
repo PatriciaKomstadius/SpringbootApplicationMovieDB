@@ -37,5 +37,7 @@ assertThat(result.getBody().length).isGreaterThan(0);
 }
 
 //Frågor labb2:
-//Inga tester för controllern?
-//Fler tester för applikationen?
+// - vilka tester ska vi göra (anrop till end pointsen?)
+//Inga tester för controllern? unittester?
+
+

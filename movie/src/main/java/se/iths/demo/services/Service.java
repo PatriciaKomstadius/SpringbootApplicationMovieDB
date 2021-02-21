@@ -11,23 +11,30 @@ import java.util.Optional;
 // samma klasser som finns i moviecontroller
 
 public interface Service {
-    //hämta alla filmer, all();
+
+    //get all
     List<MovieDto> getAllMovies();
 
-    //hämta en film, one(Long id);
+    //get one
     Optional<MovieDto> getOne(Long id);
 
+    //post create
     //Skapa ny film, create(Movie movie);
     MovieDto createMovie(MovieDto movie);
 
+    //get title
     List<MovieDto> getTitle(String title);
 
+    //get all by genre
     List<MovieDto> getAllByGenre(String genre);
 
+    //delete
     void deleteMovie(Long id);
 
+    //put
     MovieDto replace(Long id, MovieDto movieDto);
 
+    //patch
     //Ev skapa ny klass för att enbart uppdatera ex genre
     MovieDto update(Long id, MovieDto movieDto);
 }
