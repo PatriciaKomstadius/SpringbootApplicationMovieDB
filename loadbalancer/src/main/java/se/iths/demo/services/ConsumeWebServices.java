@@ -8,8 +8,15 @@ import se.iths.demo.entities.Movie;
 import se.iths.demo.entities.MovieWithRating;
 import se.iths.demo.entities.Rating;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 public class ConsumeWebServices {
+
+
 
     public ConsumeWebServices() {
     }
@@ -18,20 +25,77 @@ public class ConsumeWebServices {
     RestTemplate restTemplate;
 
 
-    //GET MOVIES
+    //GET MOVIES - ändra titel
     @GetMapping("/getMovies")
     public String testMovies() {
         return restTemplate.getForObject("http://movies-service/movies/", String.class);
     }
 
-
+    //GET RATINGS
     @GetMapping("/getRatings")
-    public String testRatings(){
+    public String testRatings() {
         return restTemplate.getForObject("http://ratings-service/ratings", String.class);
     }
 
+    //HÄMTAR TITEL OCH RATING
+    @GetMapping("/getTitleAndRating/{id}")
+    public String getTitleAndRating(@PathVariable Long id) {
+        Movie[] movies = restTemplate.getForObject("http://movies-service/movies/", Movie[].class);
+        Rating[] ratings = restTemplate.getForObject("http://ratings-service/ratings", Rating[].class);
+        String movie = MovieWithRating.getTitleAndRating(id, movies, ratings);
+        if (movie != null) return movie;
+        return "Couldn't find movie with id " + id;
+    }
 
-    //VISAR RATING FÖR ALLA FILMER
+    //VISAR FILMER OCH RATINGS
+    @GetMapping("/getAllTitlesWithRatings")
+    @ResponseBody
+    public List<String> getTitlesAndRatings() {
+        Movie[] movies = restTemplate.getForObject("http://movies-service/movies/", Movie[].class);
+        Rating[] ratings = restTemplate.getForObject("http://ratings-service/ratings", Rating[].class);
+        List<String> ratedMovies = MovieWithRating.getMoviesAndRatings(movies, ratings);
+        return ratedMovies;
+    }
+
+
+
+
+
+/*
+    @GetMapping("/getItAll")
+    public List<MovieWithRating> getItAll() {
+        Movie[] movies = restTemplate.getForObject("http://movies-service/movies/", Movie[].class);
+        Rating[] ratings = restTemplate.getForObject("http://ratings-service/ratings", Rating[].class);
+        // MovieWithRating mrw = new MovieWithRating();
+       List<MovieWithRating> arr =
+
+        for (Movie m : movies) {
+            for (Rating r : ratings) {
+                if (m.getId() == r.getId()) {
+                    String titl = m.getTitle();
+                    double rate = r.getRating();
+                    MovieWithRating mrw = new MovieWithRating(titl, rate);
+                    arr.add(mrw);
+                    arr.stream().toArray();
+                }
+            }
+        }
+        return arr;
+    }
+    */
+
+
+
+
+
+       /*
+         @GetMapping("/getTitleAndRating/{id}")
+    public String getAll(@PathVariable Long id) {
+    return movie;
+    }*/
+
+
+    //VISAR RATING FÖR ALLA FILMER OK ATT RADERA!
     @GetMapping("template/getRatings")
     public String getFromUrl() throws JsonProcessingException {
         return restTemplate.getForObject("http://localhost:5060/ratings", String.class);
@@ -42,6 +106,16 @@ public class ConsumeWebServices {
     public String allInfo() {
         return restTemplate.getForObject("http://localhost:5050/movies", String.class)
                 + restTemplate.getForObject("http://localhost:5060/ratings", String.class);
+    }
+
+    //HÄMTAR TITEL OCH RATING OK ATT RADERA!
+    @GetMapping("template/ratings/{id}")
+    public String getTitleAndRating2(@PathVariable Long id) {
+        Movie[] movies = restTemplate.getForObject("http://localhost:5050/movies", Movie[].class);
+        Rating[] ratings = restTemplate.getForObject("http://localhost:5060/ratings", Rating[].class);
+        String movie = MovieWithRating.getTitleAndRating(id, movies, ratings);
+        if (movie != null) return movie;
+        return "Couldn't find movie with id " + id;
     }
 
     //RETURNERAR TITEL FRÅN ARRAY PÅ SÖKT ID
@@ -56,15 +130,6 @@ public class ConsumeWebServices {
         return "Couldn't find movie with id " + id;
     }
 
-    //HÄMTAR TITEL OCH RATING
-    @GetMapping("template/ratings/{id}")
-    public String getTitleAndRating(@PathVariable Long id) {
-        Movie[] movies = restTemplate.getForObject("http://localhost:5050/movies", Movie[].class);
-        Rating[] ratings = restTemplate.getForObject("http://localhost:5060/ratings", Rating[].class);
-        String movie = MovieWithRating.getTitleAndRating(id, movies, ratings);
-        if (movie != null) return movie;
-        return "Couldn't find movie with id " + id;
-    }
 
 /*
     //TEST ALL OFULLSTÄNDIG KOD

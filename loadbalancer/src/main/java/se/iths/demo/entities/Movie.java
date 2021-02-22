@@ -8,6 +8,7 @@ public class Movie {
     //välj fält från movie
     private long id;
     private String title;
+    private double rating;
 
     public Movie() {
     }
