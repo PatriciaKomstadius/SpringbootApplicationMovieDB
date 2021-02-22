@@ -17,6 +17,20 @@ public class ConsumeWebServices {
     @Autowired
     RestTemplate restTemplate;
 
+
+    //GET MOVIES
+    @GetMapping("/getMovies")
+    public String testMovies() {
+        return restTemplate.getForObject("http://movies-service/movies/", String.class);
+    }
+
+
+    @GetMapping("/getRatings")
+    public String testRatings(){
+        return restTemplate.getForObject("http://ratings-service/ratings", String.class);
+    }
+
+
     //VISAR RATING FÖR ALLA FILMER
     @GetMapping("template/getRatings")
     public String getFromUrl() throws JsonProcessingException {
@@ -71,7 +85,6 @@ public class ConsumeWebServices {
         }
     }
     */
-
 
 
 }

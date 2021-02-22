@@ -10,7 +10,6 @@ public class MovieWithRating {
     public MovieWithRating() {
     }
 
-
     //Kan man ha två resttample & autowired fr samma bean?
     @Autowired
     RestTemplate restTemplate;

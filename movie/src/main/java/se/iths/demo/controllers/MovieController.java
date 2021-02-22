@@ -5,25 +5,30 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import se.iths.demo.dtos.MovieDto;
-import se.iths.demo.services.MovieService;
 import se.iths.demo.services.Service;
-
 import java.util.List;
 
 //Controller klass
 @RestController
 public class MovieController {
-    //Skapar ett fält för MovieRepository, så man sedan kan göra dependency injections
 
+    //Skapar ett fält för Service, så man sedan kan göra dependency injections
     private Service service;
 
-    //Skapar en konstruktor med annotation Autowired,
-    //gör att alla metoder blir tillgängliga i klassen
+    //Skapar en konstruktor med annotation Autowired, gör att alla metoder blir tillgängliga i klassen
     @Autowired
     public MovieController(Service service) {
         this.service = service;
     }
 
+    //GET ONE - RETURNERAR 404 OM EJ FINNS
+    //PathVariable, visar att värdet på variabel Long id finns i url:n
+    @GetMapping("/movies/{id}")
+    public MovieDto one(@PathVariable Long id) {
+        return service.getOne(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Id " + id + " not found."));
+    }
 
     //GET ALL
     @GetMapping("/movies")
@@ -31,15 +36,6 @@ public class MovieController {
         return service.getAllMovies();
         //Här ställs frågan att hitta alla när klienten ställer frågan /movies
         // konverteras automatisk till json av springboot
-    }
-
-    //GET TITLE BY ID - RETURNERAR 404 OM EJ FINNS
-    //PathVariable, visar att värdet på variabel Long id finns i url:n
-    @GetMapping("/movies/{id}")
-    public MovieDto one(@PathVariable Long id) {
-        return service.getOne(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Id " + id + " not found."));
     }
 
     //POST CREATE NEW MOVIE 201

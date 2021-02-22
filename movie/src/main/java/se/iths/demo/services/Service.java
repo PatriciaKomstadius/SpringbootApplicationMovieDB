@@ -19,7 +19,6 @@ public interface Service {
     Optional<MovieDto> getOne(Long id);
 
     //post create
-    //Skapa ny film, create(Movie movie);
     MovieDto createMovie(MovieDto movie);
 
     //get title

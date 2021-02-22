@@ -12,11 +12,11 @@ import java.util.List;
 @Repository //obs! Behöver ange @repository manuellt, att det är en repositoryklass
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
-    //Skapar en lista därifrån man kan söka på genre urlparameter
-    List<Movie> findAllByGenre(String genre);
-
     //Hitta titel med urlparametrar
     List<Movie> findByTitle(String title);
+
+    //Skapar en lista därifrån man kan söka på genre urlparameter
+    List<Movie> findAllByGenre(String genre);
 
     //Söker upp film med id urlparameter
     List<Movie> findById(long id);
