@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import se.iths.demo.dtos.MovieDto;
 import se.iths.demo.services.Service;
+
 import java.util.List;
 
 //Controller klass
@@ -56,7 +57,7 @@ public class MovieController {
     //SEARCH BY GENRE
     @GetMapping("/movies/genre")
     @ResponseBody
-    public List<MovieDto> findAllByGenre (@RequestParam String genre) {
+    public List<MovieDto> findAllByGenre(@RequestParam String genre) {
         return service.getAllByGenre(genre);
     }
 
@@ -78,30 +79,27 @@ public class MovieController {
 
     //DELETE ID - TA BORT?
     @DeleteMapping("/movies/delete/{id}")
-   public void deleteMovieById(@PathVariable Long id) {
+    public void deleteMovieById(@PathVariable Long id) {
         //personService.deleteById(id);
         //->Skapa public void delete(Long id) i ny klass PersonService
         //404 not found
         service.deleteMovie(id);
         //.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-          //      "Id " + id + " not found."));
+        //      "Id " + id + " not found."));
     }
 
 
     //PUT använd 404 not found
     @PutMapping("/movies/{id}")
-    public MovieDto replace(@RequestBody MovieDto movieDto, @PathVariable Long id){
+    public MovieDto replace(@RequestBody MovieDto movieDto, @PathVariable Long id) {
         return service.replace(id, movieDto);
     }
 
     //PATCH använd 404 not found
     @PatchMapping("/movies/{id}")
-    public MovieDto update(@RequestBody MovieDto movieDto, @PathVariable Long id){
+    public MovieDto update(@RequestBody MovieDto movieDto, @PathVariable Long id) {
         return service.update(id, movieDto);
     }
-
-
-
 
 
 //FILMEN SPARAS EJ I TABELLEN, FYLLT I PARAMETRAR
@@ -112,12 +110,7 @@ public class MovieController {
     }
     */
 
-    /* //VARFÖR FUNKAR DET INTE ATT ANGE TITEL? BLIR 505 ERROR
-    @GetMapping("/titles/{title}")
-    public List<Movie> search(@PathVariable String title){
-        return movieRepository.findByTitle(title);
-    }
-     */
+
 
 }
 
