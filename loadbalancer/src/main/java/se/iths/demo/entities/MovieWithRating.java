@@ -27,9 +27,12 @@ public class MovieWithRating {
                     String movie = "{title:" + m.getTitle() + " rating:" + r.getRating() + "}";
                     return movie;
                 }
+                if(id.equals(m.getId()) && !id.equals(r.getId())){
+                    return "No rating on this title yet";
+                }
             }
         }
-        return "No rating on this title yet";
+        return "Requested title not available in database";
     }
 
     //OK - RETURNERAR LISTA AV FILMER MED RATINGS

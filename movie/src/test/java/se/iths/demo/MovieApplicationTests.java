@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 //Springboottest startar upp hela applikationen
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class DemoApplicationTests {
+class MovieApplicationTests {
 
     //public DemoApplicationTests() {
     //}
