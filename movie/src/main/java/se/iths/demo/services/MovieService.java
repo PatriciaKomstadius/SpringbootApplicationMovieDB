@@ -8,6 +8,7 @@ import se.iths.demo.mappers.MovieMapper;
 import se.iths.demo.repositories.MovieRepository;
 import se.iths.demo.dtos.MovieDto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,28 +26,26 @@ public class MovieService implements se.iths.demo.services.Service {
         this.movieMapper = movieMapper;
     }
 
-    //hämta alla filmer, all();
+    //GET ALL
     @Override
     public List<MovieDto> getAllMovies() {
         return movieMapper.mapp(movieRepository.findAll());
     }
 
-    //hämta en film, one(Long id);
+    //GET ONE
     @Override
     public Optional<MovieDto> getOne(Long id) {
         //map from Movie to MovieDto
         return movieMapper.mapp(movieRepository.findById(id));
     }
 
-    //Skapa ny film, create(Movie movie);
+    //POST MOVIE - 400 OK ELLER 404 NOT FOUND? skriver ej ut detta?
     @Override
     public MovieDto createMovie(MovieDto movie) {
-        //valideringskod
         if (movie.getTitle().isEmpty())
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "No movietitle entered."); //400 OK ELLER 404 NOT FOUND? skriver ej ut detta?
-        //map from movieDto to Movie, får in Moviedto mappar det till ett movieobjekt
-        // svaret från movierepo är en entitet som mappas till en moviedto hela.
+                    "No movietitle entered.");
+        //mappar från movieDto till Movieobjekt
         return movieMapper.mapp(movieRepository.save(movieMapper.mapp(movie)));
     }
 
@@ -62,7 +61,7 @@ public class MovieService implements se.iths.demo.services.Service {
 
     @Override
     public void deleteMovie(Long id) {
-       Optional<Movie> movieId = movieRepository.findById(id);
+        Optional<Movie> movieId = movieRepository.findById(id);
         if (movieId.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id " + id + "not found.");
         }
@@ -71,7 +70,7 @@ public class MovieService implements se.iths.demo.services.Service {
 
     @Override
     public MovieDto replace(Long id, MovieDto movieDto) {
-        Optional<Movie> movie = movieRepository.findById(id); //kopierar över info till movieobjektet
+        Optional<Movie> movie = movieRepository.findById(id);
         if (movie.isPresent()) {
             Movie updateMovie = movie.get();
             updateMovie.setTitle(movieDto.getTitle());
@@ -83,11 +82,11 @@ public class MovieService implements se.iths.demo.services.Service {
         }
     }
 
-
     //Ev skapa ny klass för att enbart uppdatera ex genre
+    // kopierar över info till movieobjektet MovieDto->Movie(entitet)
     @Override
     public MovieDto update(Long id, MovieDto movieDto) {
-        Optional<Movie> movie = movieRepository.findById(id); //kopierar över info till movieobjektet
+        Optional<Movie> movie = movieRepository.findById(id);
         if (movie.isPresent()) {
 
             Movie updateMovie = movie.get();
@@ -99,8 +98,7 @@ public class MovieService implements se.iths.demo.services.Service {
             if (movieDto.getYear() != null)
                 updateMovie.setYear(movieDto.getYear());
             return movieMapper.mapp(movieRepository.save(updateMovie));
-        }
-        else {
+        } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id " + id + "not found.");
         }
     }

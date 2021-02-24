@@ -16,7 +16,7 @@ public class MovieWithRating {
     @Autowired
     RestTemplate restTemplate;
 
-    //OK - RETURNERAR EN FILM MED RATING
+    //RETURNERAR EN FILM MED RATING
     public static String getTitleAndRating(Long id, Movie[] movies, Rating[] ratings) {
 
         for (Movie m : movies) {
@@ -28,11 +28,9 @@ public class MovieWithRating {
             }
         }
             return null;
-
         }
 
-
-    //OK - RETURNERAR LISTA AV FILMER MED RATINGS
+    //RETURNERAR ALLA FILMER MED RATINGS
     public static List<String> getMoviesAndRatings(Movie[] movies, Rating[] ratings) {
 List<String> list = new ArrayList<>();
         String object = "";

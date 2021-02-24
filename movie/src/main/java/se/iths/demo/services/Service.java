@@ -5,10 +5,7 @@ import se.iths.demo.dtos.MovieDto;
 import java.util.List;
 import java.util.Optional;
 
-//Interface Service skapas för att kunna skapa en TestService klass
-// med tester som implementerar dessa metoder för att se att
-// de fungerar som de ska skriver då alltså tester för exakt
-// samma klasser som finns i moviecontroller
+//Interface för TestService klass, kan skriva tester för exakt samma metoder som finns i MovieController
 
 public interface Service {
 

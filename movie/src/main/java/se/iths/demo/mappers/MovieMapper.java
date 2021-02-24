@@ -9,13 +9,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-//mappmetoderna kopierar över moviedto till movie och tvärtom, mappar ihop
 @Component
 public class MovieMapper {
 
     public MovieMapper() {
     }
-
     //metod som kan kopiera ett movieDtoobjekt från ett movieobjekt
     public MovieDto mapp(Movie movie) {
         return new MovieDto(movie.getId(), movie.getTitle(), movie.getYear(), movie.getGenre());
@@ -33,7 +31,6 @@ public class MovieMapper {
     }
 
     //ström av data. varje movie mappas och läggs i en ny lista
-
     public List<MovieDto> mapp(List<Movie> all) {
         return all
                 .stream()
