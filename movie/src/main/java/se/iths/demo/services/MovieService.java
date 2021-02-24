@@ -62,6 +62,10 @@ public class MovieService implements se.iths.demo.services.Service {
 
     @Override
     public void deleteMovie(Long id) {
+       Optional<Movie> movieId = movieRepository.findById(id);
+        if (movieId.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id " + id + "not found.");
+        }
         movieRepository.deleteById(id);
     }
 
