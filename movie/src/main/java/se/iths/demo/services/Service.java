@@ -36,4 +36,5 @@ public interface Service {
     //patch
     //Ev skapa ny klass för att enbart uppdatera ex genre
     MovieDto update(Long id, MovieDto movieDto);
+
 }

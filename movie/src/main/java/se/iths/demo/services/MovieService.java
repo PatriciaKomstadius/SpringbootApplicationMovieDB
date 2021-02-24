@@ -44,7 +44,7 @@ public class MovieService implements se.iths.demo.services.Service {
         //valideringskod
         if (movie.getTitle().isEmpty())
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "No movietitle entered."); //400 OK? skriver ej ut detta?
+                    "No movietitle entered."); //400 OK ELLER 404 NOT FOUND? skriver ej ut detta?
         //map from movieDto to Movie, får in Moviedto mappar det till ett movieobjekt
         // svaret från movierepo är en entitet som mappas till en moviedto hela.
         return movieMapper.mapp(movieRepository.save(movieMapper.mapp(movie)));
@@ -59,21 +59,6 @@ public class MovieService implements se.iths.demo.services.Service {
     public List<MovieDto> getAllByGenre(String genre) {
         return movieMapper.mapp(movieRepository.findAllByGenre(genre));
     }
-
-   /* public MovieDto updateTitle(MovieDto newMovie, Long id) {
-        return movieRepository.findById(id)
-                .map(movie -> {
-                    movie.setTitle(newMovie.getTitle());
-                    movie.setGenre(newMovie.getGenre());
-                    movie.setYear(newMovie.getYear());
-                    return movieRepository.save(movie);
-                })
-                .orElseGet(() -> {
-                    newMovie.setId(id);
-                    return movieRepository.save(newMovie);
-                });
-    }*/
-
 
     @Override
     public void deleteMovie(Long id) {
@@ -93,6 +78,8 @@ public class MovieService implements se.iths.demo.services.Service {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id " + id + "not found.");
         }
     }
+
+
     //Ev skapa ny klass för att enbart uppdatera ex genre
     @Override
     public MovieDto update(Long id, MovieDto movieDto) {

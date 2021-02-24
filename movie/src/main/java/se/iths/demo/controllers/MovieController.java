@@ -61,12 +61,6 @@ public class MovieController {
         return service.getAllByGenre(genre);
     }
 
-    /*
-    //PUT UPDATE A MOVIE
-    @PutMapping("/movies/{id}")
-    MovieDto replaceTitle(@RequestBody MovieDto newMovie, @PathVariable Long id) {
-        return movieService.updateTitle(newMovie, id);
-    }*/
 
     //DELETE ID
     @DeleteMapping("/movies/{id}")
@@ -88,7 +82,6 @@ public class MovieController {
         //      "Id " + id + " not found."));
     }
 
-
     //PUT använd 404 not found
     @PutMapping("/movies/{id}")
     public MovieDto replace(@RequestBody MovieDto movieDto, @PathVariable Long id) {
@@ -100,17 +93,6 @@ public class MovieController {
     public MovieDto update(@RequestBody MovieDto movieDto, @PathVariable Long id) {
         return service.update(id, movieDto);
     }
-
-
-//FILMEN SPARAS EJ I TABELLEN, FYLLT I PARAMETRAR
-   /* @GetMapping("/movies/{id}")
-    public Movie create(@PathVariable Long id){
-        return movieRepository.findById(id)
-                .orElse(new Movie());
-    }
-    */
-
-
 
 }
 

@@ -30,7 +30,9 @@ public class MovieMapper {
             return Optional.empty(); //returneras optional movieDto som är tom
         return Optional.of(mapp(optionalMovie.get())); //annars returnera optional,
 // mappar inkommande optional movie till en movieDto
-    }//ström av data. varje movie mappas och läggs i en ny lista
+    }
+
+    //ström av data. varje movie mappas och läggs i en ny lista
 
     public List<MovieDto> mapp(List<Movie> all) {
         return all
