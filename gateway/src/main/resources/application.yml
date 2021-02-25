@@ -1,0 +1,36 @@
+server:
+  port: 9040
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    consul:
+      discovery:
+        register: false
+        registerHealthCheck: false
+      config:
+        enabled: false
+      host: localhost
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: movies-service
+          uri: lb://movies-service
+          predicates:
+            - Path=/movies/**
+          filters:
+            - RewritePath=/movies/(?<titles>.*), /movies/$\{titles}
+            #- RewritePath=/movies/(?<path>.*), /$\{path}
+        - id: ratings-service
+          uri: lb://ratings-service
+          predicates:
+            - Path=/ratings/**
+          filters:
+           # - RewritePath=/ratings/(?<getalltitleswithratings>.*), /$\{all}
+        - id:
+
+
+
+
