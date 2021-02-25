@@ -47,5 +47,4 @@ List<String> list = new ArrayList<>();
         }
         return null;
     }
-
 }
