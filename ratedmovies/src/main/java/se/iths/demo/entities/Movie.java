@@ -1,14 +1,11 @@
 package se.iths.demo.entities;
-
-
 import org.springframework.context.annotation.Bean;
 
 public class Movie {
 
-    //välj fält från movie
     private long id;
     private String title;
-    private double rating;
+    private String genre;
 
     public Movie() {
     }
@@ -32,5 +29,13 @@ public class Movie {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 }

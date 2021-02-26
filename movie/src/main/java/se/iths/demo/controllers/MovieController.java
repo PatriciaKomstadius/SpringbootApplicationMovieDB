@@ -12,10 +12,8 @@ import java.util.List;
 @RestController
 public class MovieController {
 
-    //Skapar ett fält för Service, så man sedan kan göra dependency injections
     private Service service;
 
-    //Skapar en konstruktor med annotation Autowired, gör att alla metoder blir tillgängliga i klassen
     @Autowired
     public MovieController(Service service) {
         this.service = service;
@@ -35,32 +33,11 @@ public class MovieController {
         return service.getAllMovies();
     }
 
-    //POST CREATE NEW MOVIE
+    //POST MOVIE
     @PostMapping("/movies")
-    @ResponseStatus(HttpStatus.CREATED) //ändrar till http status 201 created
+    @ResponseStatus(HttpStatus.CREATED)
     public MovieDto create(@RequestBody MovieDto movie) { //@RequestBody hämtar sin info från inkommande body i json
         return service.createMovie(movie); //returnerar objektet med det autogenererade id:t
-    }
-
-    //SEARCH FOR TITLES
-    @GetMapping("/movies/titles")
-    @ResponseBody
-    public List<MovieDto> getMovieByTitle(@RequestParam String title) {
-        return service.getTitle(title);
-    }
-
-    //SEARCH BY GENRE
-    @GetMapping("/movies/genre")
-    @ResponseBody
-    public List<MovieDto> findAllByGenre(@RequestParam String genre) {
-        return service.getAllByGenre(genre);
-    }
-
-
-    //DELETE ID
-    @DeleteMapping("/movies/delete/{id}")
-    public void deleteMovieById(@PathVariable Long id) {
-        service.deleteMovie(id);
     }
 
     //PUT använd 404 not found
@@ -73,6 +50,26 @@ public class MovieController {
     @PatchMapping("/movies/{id}")
     public MovieDto update(@RequestBody MovieDto movieDto, @PathVariable Long id) {
         return service.update(id, movieDto);
+    }
+
+    //DELETE ID
+    @DeleteMapping("/movies/delete/{id}")
+    public void deleteMovieById(@PathVariable Long id) {
+        service.deleteMovie(id);
+    }
+
+    //SEARCH FOR TITLES PARAM
+    @GetMapping("/movies/titles")
+    @ResponseBody
+    public List<MovieDto> getMovieByTitle(@RequestParam String title) {
+        return service.getTitle(title);
+    }
+
+    //SEARCH BY GENRE PARAM
+    @GetMapping("/movies/genre")
+    @ResponseBody
+    public List<MovieDto> findAllByGenre(@RequestParam String genre) {
+        return service.getAllByGenre(genre);
     }
 
 }

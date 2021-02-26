@@ -16,23 +16,21 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: movieratings-service
+        - id: ratedmovies-service
           uri: lb://ratedmovies-service
           predicates:
-            - Path=/getAllTitlesWithRatings
+            - Path=/ratedmovies/**
         - id: movies-service
           uri: lb://movies-service
           predicates:
             - Path=/movies/**
           filters:
            #- RewritePath=/movies/(?<titles>.*), /movies/$\{titles}
-            - RewritePath=/movies/(?<path>.*), /$\{path}
+           #- RewritePath=/movies/(?<path>.*), /$\{path}
         - id: ratings-service
           uri: lb://ratings-service
           predicates:
             - Path=/ratings/**
-          filters:
-           # - RewritePath=/ratings/(?<getalltitleswithratings>.*), /$\{all}
 
 
 

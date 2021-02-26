@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import java.time.Duration;
 
 @SpringBootApplication
-@EnableRetry //kör automatiskt om applikationen om man får exception i någon metod
+@EnableRetry
 public class ServiceApplication {
 
 

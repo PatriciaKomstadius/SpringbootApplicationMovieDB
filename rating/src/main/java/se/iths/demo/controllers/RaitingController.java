@@ -1,5 +1,6 @@
 package se.iths.demo.controllers;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -53,7 +54,7 @@ public class RaitingController {
 
     //DELETE
     @DeleteMapping("/ratings/delete/{id}")
-    public void deleteRating(@PathVariable Long id){
+    public void deleteRating(@PathVariable Long id) {
         service.deleteRating(id);
     }
 }
