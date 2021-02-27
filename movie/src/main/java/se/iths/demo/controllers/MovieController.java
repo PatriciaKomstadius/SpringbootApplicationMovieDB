@@ -66,7 +66,7 @@ public class MovieController {
     }
 
     //SEARCH BY GENRE PARAM
-    @GetMapping("/movies/genre")
+    @GetMapping("/movies/genres")
     @ResponseBody
     public List<MovieDto> findAllByGenre(@RequestParam String genre) {
         return service.getAllByGenre(genre);

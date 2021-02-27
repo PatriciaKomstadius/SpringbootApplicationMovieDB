@@ -18,6 +18,9 @@ public class MovieDto {
         this.genre = genre;
     }
 
+    public MovieDto() {
+    }
+
     public long getId() {
         return id;
     }

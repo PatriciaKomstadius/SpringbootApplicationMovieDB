@@ -12,7 +12,6 @@ import se.iths.demo.entities.Rating;
 import java.util.List;
 
 @RestController
-
 public class ConsumeWebServices {
 
     public ConsumeWebServices() {
@@ -43,9 +42,9 @@ public class ConsumeWebServices {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "Requested title not available with rating and/or doesn't exist in database.");
+            //kommentar syns inte i message?
         }
     }
-
 
     //GET RATINGS ONLY ta bort?
     @GetMapping("/ratedmovies/ratings")

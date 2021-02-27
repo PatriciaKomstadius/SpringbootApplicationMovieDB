@@ -20,10 +20,13 @@ public class RaitingController {
         this.service = service;
     }
 
-    //POST
-    @PostMapping("/ratings")
-    public RatingDto create(@RequestBody RatingDto rating) {
-        return service.postRating(rating);
+
+    //GET ONE
+    @GetMapping("/ratings/{id}")
+    public RatingDto one(@PathVariable Long id) {
+        return service.getOne(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Id " + id + " not found."));
     }
 
     //GET ALL
@@ -32,12 +35,10 @@ public class RaitingController {
         return service.getAll();
     }
 
-    //GET ONE
-    @GetMapping("/ratings/{id}")
-    public RatingDto one(@PathVariable Long id) {
-        return service.getOne(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Id " + id + " not found."));
+    //POST
+    @PostMapping("/ratings")
+    public RatingDto create(@RequestBody RatingDto rating) {
+        return service.postRating(rating);
     }
 
     //PUT

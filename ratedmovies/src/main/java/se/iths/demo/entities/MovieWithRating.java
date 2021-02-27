@@ -19,10 +19,6 @@ public class MovieWithRating {
     @Autowired
     RestTemplate restTemplate;
 
-
-
-
-
     //RETURNERAR EN FILM MED RATING
     public static String getTitleAndRating(Long id, Movie[] movies, Rating[] ratings) {
 
@@ -41,13 +37,12 @@ public class MovieWithRating {
                     //         "Requested title not available with rating and/or doesn't exist in database.");
                     String empty = "Requested title not available with rating and/or doesn't exist in database.";
                     return empty;
+
                 }
             }
         }
         return null;
     }
-
-
 
     //RETURNERAR ALLA FILMER MED RATINGS
     public static List<String> getMoviesAndRatings(Movie[] movies, Rating[] ratings) {
