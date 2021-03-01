@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-//Service mellan Controllern och DB
-// sköter validering av inskickad info
 @Service
 public class MovieService implements se.iths.demo.services.Service {
 
@@ -82,8 +80,6 @@ public class MovieService implements se.iths.demo.services.Service {
         }
     }
 
-    //Ev skapa ny klass för att enbart uppdatera ex genre
-    // kopierar över info till movieobjektet MovieDto->Movie(entitet)
     @Override
     public MovieDto update(Long id, MovieDto movieDto) {
         Optional<Movie> movie = movieRepository.findById(id);

@@ -2,8 +2,8 @@ package se.iths.demo.entities;
 
 import javax.persistence.*;
 
-@Entity //Entitetsklassen, motsvarar en entitet i databasen
-@Table(name = "Movies") //Skapar automatiskt tabellen Movies i databasen att mappa mot
+@Entity
+@Table(name = "Movies")
 public class Movie {
 
     public Movie() {

@@ -36,8 +36,8 @@ public class MovieController {
     //POST MOVIE
     @PostMapping("/movies")
     @ResponseStatus(HttpStatus.CREATED)
-    public MovieDto create(@RequestBody MovieDto movie) { //@RequestBody hämtar sin info från inkommande body i json
-        return service.createMovie(movie); //returnerar objektet med det autogenererade id:t
+    public MovieDto create(@RequestBody MovieDto movie) {
+        return service.createMovie(movie);
     }
 
     //PUT använd 404 not found
@@ -66,7 +66,7 @@ public class MovieController {
     }
 
     //SEARCH BY GENRE PARAM
-    @GetMapping("/movies/genres")
+    @GetMapping("/movies/genre")
     @ResponseBody
     public List<MovieDto> findAllByGenre(@RequestParam String genre) {
         return service.getAllByGenre(genre);

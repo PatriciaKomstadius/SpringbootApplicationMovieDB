@@ -5,7 +5,7 @@ import se.iths.demo.dtos.MovieDto;
 import java.util.List;
 import java.util.Optional;
 
-//Interface för TestService klass, kan skriva tester för exakt samma metoder som finns i MovieController
+//Interface för metoder i MovieController och TestService klass
 
 public interface Service {
 

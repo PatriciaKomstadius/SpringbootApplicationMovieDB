@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
+import org.springframework.web.server.ResponseStatusException;
 import se.iths.demo.dtos.MovieDto;
 
 
@@ -38,7 +39,6 @@ class MovieApplicationTests {
 
 
     //OK! - GET ONE /{id} HTTP OK
-    //check or else throw HTTP STATUS NOT FOUND
     @Test
     void oneShouldReturnOneMovieTitle() {
         HttpHeaders headers = new HttpHeaders();
@@ -49,12 +49,22 @@ class MovieApplicationTests {
         long id = 5;
         var result = testClient.getForEntity(url, MovieDto.class, id);
 
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(result.getBody().getTitle()).isEqualTo("TestTitle4");
+    }
+
+    //check or else throw HTTP STATUS NOT FOUND
+    @Test
+    void oneShouldThrowResponseStatusException404(){
+        String url = "http://localhost:" + port + "/movies/{id}";
+        long id = 10;
+        var exception = testClient.getForEntity(url, MovieDto.class, id);
+        assertThat(exception.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     //OK! - POST MOVIE CHECK HTTPSTATUS CREATED
     @Test
-    void postMovie() {
+    void createShouldCreateANewMovie() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Accept", "application/xml");
 
@@ -64,12 +74,22 @@ class MovieApplicationTests {
 
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(result.getBody().getTitle()).isEqualTo("TestTitle");
+    }
 
+    //Throws HttpStatus BAD_REQUEST 400 when empty title
+    @Test
+    void createEmptyTitleShouldThrowResponseStatusException400(){
+        String url = "http://localhost:" + port + "/movies";
+        MovieDto movieDto = new MovieDto();
+        movieDto.setTitle("");
+        long id = 9;
+        var exception = testClient.postForEntity(url, movieDto, MovieDto.class, id);
+        assertThat(exception.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
     //PUT CHECK HTTPSTATUS OK OR HTTP 404 NOT FOUND
     @Test
-    void putMovie() {
+    void replaceShouldReplaceAllFieldsInMovie() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Accept", "application/xml");
 
@@ -86,10 +106,19 @@ class MovieApplicationTests {
         assertThat(result.getBody().getTitle()).isEqualTo("Hello");
     }
 
+    //exception throws
+    @Test
+    void replaceShouldThrowResponseStatusException404(){
+        String url = "http://localhost:" + port + "/movies/{id}";
+        long id = 10;
+      //  var exception = testClient.put(url, MovieDto.class, id);
+       // assertThat(exception.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
     //OK! - PATCH UPDATE
     // CHECK HTTPSTATUS OK OR HTTP 404 NOT FOUND
     @Test
-    void patchMovie() {
+    void updateShouldUpdateFieldsInMovie() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Accept", "application/xml");
 
@@ -108,9 +137,13 @@ class MovieApplicationTests {
 
     }
 
+    @Test
+    void updateShouldThrowResponseStatusException404(){
+
+    }
     //OK! - DELETE CHECK HTTP STATUS NOT FOUND - ok?
     @Test
-    void deleteMovie() {
+    void deleteShouldDeleteMovie() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Accept", "application/xml");
 
@@ -130,6 +163,21 @@ class MovieApplicationTests {
     //GET TITLE HTTPSTATUS OK
 
     //GET GENRE HTTPSTATUS OK
+    @Test
+    void getGenreShouldReturnAllMoviesInTheGenre() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Accept", "application/xml");
+
+        String url = "http://localhost:" + port + "/movies/genre?genre={genre}";
+
+        String genre = "Comedy";
+
+        var result = testClient.getForEntity(url, MovieDto.class, genre);
+
+       // assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(result.getBody().getGenre()).isEqualTo("Comedy");
+    }
+
 
 }
 

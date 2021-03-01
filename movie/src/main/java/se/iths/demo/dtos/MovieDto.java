@@ -2,8 +2,6 @@ package se.iths.demo.dtos;
 
 //Data transfer object
 //Controller <-movieDto-> Service <-movie entity class-> DB/Repo
-//Dto flyttar data mellan controller och service
-//skickar info mellan våra lager kod
 
 public class MovieDto {
     private long id;
