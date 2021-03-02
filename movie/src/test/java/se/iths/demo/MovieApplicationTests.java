@@ -8,8 +8,11 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.util.UriComponentsBuilder;
 import se.iths.demo.dtos.MovieDto;
 
+
+import java.net.URI;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -55,7 +58,7 @@ class MovieApplicationTests {
 
     //check or else throw HTTP STATUS NOT FOUND
     @Test
-    void oneShouldThrowResponseStatusException404(){
+    void oneShouldThrowResponseStatusException404() {
         String url = "http://localhost:" + port + "/movies/{id}";
         long id = 10;
         var exception = testClient.getForEntity(url, MovieDto.class, id);
@@ -78,7 +81,7 @@ class MovieApplicationTests {
 
     //Throws HttpStatus BAD_REQUEST 400 when empty title
     @Test
-    void createEmptyTitleShouldThrowResponseStatusException400(){
+    void createEmptyTitleShouldThrowResponseStatusException400() {
         String url = "http://localhost:" + port + "/movies";
         MovieDto movieDto = new MovieDto();
         movieDto.setTitle("");
@@ -108,11 +111,11 @@ class MovieApplicationTests {
 
     //exception throws
     @Test
-    void replaceShouldThrowResponseStatusException404(){
+    void replaceShouldThrowResponseStatusException404() {
         String url = "http://localhost:" + port + "/movies/{id}";
         long id = 10;
-      //  var exception = testClient.put(url, MovieDto.class, id);
-       // assertThat(exception.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        //  var exception = testClient.put(url, MovieDto.class, id);
+        // assertThat(exception.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     //OK! - PATCH UPDATE
@@ -138,9 +141,10 @@ class MovieApplicationTests {
     }
 
     @Test
-    void updateShouldThrowResponseStatusException404(){
+    void updateShouldThrowResponseStatusException404() {
 
     }
+
     //OK! - DELETE CHECK HTTP STATUS NOT FOUND - ok?
     @Test
     void deleteShouldDeleteMovie() {
@@ -159,23 +163,33 @@ class MovieApplicationTests {
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
-
     //GET TITLE HTTPSTATUS OK
 
     //GET GENRE HTTPSTATUS OK
     @Test
     void getGenreShouldReturnAllMoviesInTheGenre() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Accept", "application/xml");
+     //   HttpHeaders headers = new HttpHeaders();
+      //  headers.add("Accept", "application/xml");
 
-        String url = "http://localhost:" + port + "/movies/genre?genre={genre}";
+  //      URI uri = UriComponentsBuilder.fromHttpUrl("http://localhost:"+port+"/movies").path("/genre")
+    //            .queryParam("genre", "Comedy").build().toUri();
 
-        String genre = "Comedy";
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("http://localhost:"+port+"/movies/genre")
+                .queryParam("genre", "Comedy");
+        String uriBuilder = builder.build().encode().toUriString();
 
-        var result = testClient.getForEntity(url, MovieDto.class, genre);
+       var result2 = testClient.exchange(uriBuilder , HttpMethod.GET, HttpEntity.EMPTY,
+                MovieDto.class);
 
-       // assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(result.getBody().getGenre()).isEqualTo("Comedy");
+//        var result = testClient.getForEntity(uri, MovieDto.class);
+
+       // String url = "http://localhost:" + port + "/movies/genre?genre={genre}";
+      //  String genre = "Comedy";
+      //  var result = testClient.getForEntity(url, MovieDto.class, genre);
+
+        // assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(result2.getBody().getGenre()).isEqualTo("Comedy");
+
     }
 
 

@@ -98,6 +98,7 @@ public class MovieService implements se.iths.demo.services.Service {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id " + id + "not found.");
         }
     }
+
 }
 
 

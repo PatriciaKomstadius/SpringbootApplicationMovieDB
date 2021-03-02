@@ -2,8 +2,8 @@ package se.iths.demo.entities;
 
 public class Rating {
 
-   private long id;
-   private double rating;
+    private long id;
+    private double rating;
 
     public Rating() {
     }

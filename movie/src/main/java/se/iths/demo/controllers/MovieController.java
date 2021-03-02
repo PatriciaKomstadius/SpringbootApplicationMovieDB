@@ -72,5 +72,6 @@ public class MovieController {
         return service.getAllByGenre(genre);
     }
 
+
 }
 

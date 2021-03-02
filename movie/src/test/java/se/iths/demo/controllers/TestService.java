@@ -17,7 +17,7 @@ public class TestService implements Service {
     @Override
     public Optional<MovieDto> getOne(Long id) {
         if (id == 1)
-        return Optional.of(new MovieDto(1, "TestTitle", "TestYear", "TestGenre"));
+            return Optional.of(new MovieDto(1, "TestTitle", "TestYear", "TestGenre"));
         return Optional.empty();
     }
 
@@ -50,4 +50,5 @@ public class TestService implements Service {
     public MovieDto update(Long id, MovieDto movieDto) {
         return null;
     }
+
 }

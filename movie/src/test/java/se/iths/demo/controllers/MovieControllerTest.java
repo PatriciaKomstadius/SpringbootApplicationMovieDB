@@ -33,7 +33,7 @@ class MovieControllerTest {
         MovieController movieController = new MovieController(new TestService());
 
         //var movie = movieController.one(2L); skriver med lambdauttryck under
-       var exception = assertThrows(ResponseStatusException.class, () -> movieController.one(2L));
+        var exception = assertThrows(ResponseStatusException.class, () -> movieController.one(2L));
         //vi vill ha typen responsstatusexception.class,
         // fångar exceptionen i variabel exception,
         // returneras då hit och hämtas nedan

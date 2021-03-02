@@ -14,22 +14,22 @@ public class RatingMapper {
     public RatingMapper() {
     }
 
-    public Optional<RatingDto> mapp(Optional<Rating> optionalRating){
-        if(optionalRating.isEmpty())
+    public Optional<RatingDto> mapp(Optional<Rating> optionalRating) {
+        if (optionalRating.isEmpty())
             return Optional.empty();
         return Optional.of(mapp(optionalRating.get()));
     }
 
     //från RatingDto objekt -> Ratingobjekt
-    public RatingDto mapp(Rating rating){
+    public RatingDto mapp(Rating rating) {
         return new RatingDto(rating.getId(), rating.getRating());
     }
 
-    public Rating mapp(RatingDto ratingDto){
+    public Rating mapp(RatingDto ratingDto) {
         return new Rating(ratingDto.getId(), ratingDto.getRating());
     }
 
-    public List<RatingDto> mapp(List<Rating> all){
+    public List<RatingDto> mapp(List<Rating> all) {
         return all
                 .stream()
                 .map(this::mapp)

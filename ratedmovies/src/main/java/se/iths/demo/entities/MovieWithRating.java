@@ -25,7 +25,7 @@ public class MovieWithRating {
         for (Movie m : movies) {
             for (Rating r : ratings) {
                 if (id.equals(m.getId()) && id.equals(r.getId())) {
-                    String  movie = "{title:" + m.getTitle() + " rating:" + r.getRating() + "}";
+                    String movie = "{title:" + m.getTitle() + " rating:" + r.getRating() + "}";
                     return movie;
                 }
             }
