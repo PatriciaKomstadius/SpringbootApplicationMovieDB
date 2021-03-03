@@ -1,23 +1,17 @@
 package se.iths.gateway.auth;
 
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest;
-        import org.springframework.boot.actuate.health.HealthEndpoint;
-        import org.springframework.boot.actuate.info.InfoEndpoint;
-        import org.springframework.context.annotation.Bean;
-        import org.springframework.context.annotation.Configuration;
-        import org.springframework.http.HttpMethod;
-        import org.springframework.http.HttpStatus;
-        import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
-        import org.springframework.security.config.web.server.ServerHttpSecurity;
-        import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
-        import org.springframework.security.core.userdetails.User;
-        import org.springframework.security.core.userdetails.UserDetails;
-        import org.springframework.security.web.server.SecurityWebFilterChain;
-        import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
-        import reactor.core.publisher.Mono;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
+import reactor.core.publisher.Mono;
 
-        //Här authoriseras det, tillåtds att utföras
+//Här authoriseras det, tillåtds att utföras
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfiguration {
@@ -52,9 +46,10 @@ public class SecurityConfiguration {
                         swe.getResponse().setStatusCode(HttpStatus.FORBIDDEN))).and()
                 .authorizeExchange()
                 .pathMatchers("/auth/**").permitAll() //släppa in alla får att kunna ställa frågor
-                .pathMatchers(HttpMethod.GET,"/movies/**").permitAll() //tillåter GET av alla
+                .pathMatchers(HttpMethod.GET, "/movies/**").permitAll() //tillåter GET av alla
                 .pathMatchers("/movies/**").hasRole("ADMIN") //annars adminbehörighet
                 .pathMatchers("/ratings/**").authenticated()
+                .pathMatchers("/ratings/**").hasRole("ADMIN")
                 .pathMatchers("/ratedmovies/**").authenticated()
                 .anyExchange().authenticated() //för allt annat autenticated
                 .and().build();

@@ -1,7 +1,7 @@
 package se.iths.demo.controllers;
 
-import se.iths.demo.dtos.MovieDto;
-import se.iths.demo.services.Service;
+import se.iths.movie.dtos.MovieDto;
+import se.iths.movie.services.Service;
 
 import java.util.List;
 import java.util.Optional;

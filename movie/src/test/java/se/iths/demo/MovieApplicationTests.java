@@ -7,9 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
-import se.iths.demo.dtos.MovieDto;
+import se.iths.movie.dtos.MovieDto;
 
 
 import java.net.URI;
@@ -155,7 +154,7 @@ class MovieApplicationTests {
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
-    //GET TITLE HTTPSTATUS OK
+    //OK! GET TITLE HTTPSTATUS OK
     @Test
     void getTitleShouldReturnAllMoviesInTheGenre() {
         URI uri = UriComponentsBuilder.fromHttpUrl("http://localhost:" + port + "/movies").path("/titles")
@@ -164,7 +163,7 @@ class MovieApplicationTests {
         var result = testClient.getForEntity(uri, MovieDto[].class);
 
         assertThat(result.getBody()[0].getTitle()).isEqualTo("TestTitle");
-       // assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     //OK! GET GENRE HTTPSTATUS OK

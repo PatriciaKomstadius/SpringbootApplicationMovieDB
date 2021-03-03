@@ -25,9 +25,6 @@ spring:
           uri: lb://movies-service
           predicates:
             - Path=/movies/**
-          filters:
-          #- RewritePath=/movies/(?<titles>.*), /movies/$\{titles}
-          #- RewritePath=/movies/(?<path>.*), /$\{path}
 
         - id: ratings-service
           uri: lb://ratings-service

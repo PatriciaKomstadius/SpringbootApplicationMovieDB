@@ -12,7 +12,7 @@
     <artifactId>gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>demo</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Gateway for Spring Boot project</description>
     <properties>
         <java.version>15</java.version>
         <spring-cloud.version>2020.0.1</spring-cloud.version>
