@@ -50,4 +50,5 @@ public class MovieDto {
     public void setGenre(String genre) {
         this.genre = genre;
     }
+
 }

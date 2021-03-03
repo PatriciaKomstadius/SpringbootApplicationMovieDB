@@ -10,7 +10,7 @@ spring:
         registerHealthCheck: false
       config:
         enabled: false
-      host: localhost #om i dockercontainer anger man containernamnet som host, ex consul
+      host: localhost
     gateway:
       discovery:
         locator:
