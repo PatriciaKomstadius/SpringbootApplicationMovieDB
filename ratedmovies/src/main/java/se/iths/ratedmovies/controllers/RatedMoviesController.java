@@ -42,7 +42,6 @@ public class RatedMoviesController {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "Requested title not available with rating and/or doesn't exist in database.");
-            //kommentar syns inte i message?
         }
     }
 

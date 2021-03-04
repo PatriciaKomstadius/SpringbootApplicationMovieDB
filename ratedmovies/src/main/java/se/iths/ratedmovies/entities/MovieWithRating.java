@@ -19,15 +19,11 @@ public class MovieWithRating {
                     return movie;
                 }
             }
-        } //ändra till throw new
+        }
         for (Movie m : movies) {
             for (Rating r : ratings) {
                 if (id != r.getId()) {
-                    //   throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    //         "Requested title not available with rating and/or doesn't exist in database.");
-                    String empty = "Requested title not available with rating and/or doesn't exist in database.";
-                    return empty;
-
+                    return null;
                 }
             }
         }

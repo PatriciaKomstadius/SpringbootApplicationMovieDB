@@ -1,4 +1,4 @@
-package se.iths.demo;
+package se.iths.movie;
 
 
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import se.iths.movie.dtos.MovieDto;
-
 
 import java.net.URI;
 
@@ -166,6 +165,18 @@ class MovieApplicationTests {
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
+    @Test
+    void getTitleShouldThrowResponseStatusException404NotFound() {
+
+        URI uri = UriComponentsBuilder.fromHttpUrl("http://localhost:" + port + "/movies").path("/titles")
+                .queryParam("title", "Hej").build().toUri();
+
+        var result = testClient.getForEntity(uri, MovieDto.class);
+
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+       // assertThat(result.getBody().getTitle()).isEqualTo(null);
+    }
+
     //OK! GET GENRE HTTPSTATUS OK
     @Test
     void getGenreShouldReturnAllMoviesInTheGenre() {
@@ -177,6 +188,20 @@ class MovieApplicationTests {
         assertThat(result.getBody()[0].getGenre()).isEqualTo("Comedy");
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
+
+    @Test
+    void getGenreShouldThrowResponseStatusException404NotFound() {
+
+        URI uri = UriComponentsBuilder.fromHttpUrl("http://localhost:" + port + "/movies").path("/genre")
+                .queryParam("genre", "StandUp").build().toUri();
+
+        var result = testClient.getForEntity(uri, MovieDto.class);
+
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        // assertThat(result.getBody().getTitle()).isEqualTo(null);
+    }
+
+
 
 }
 

@@ -37,20 +37,29 @@ public class MovieService implements se.iths.movie.services.Service {
 
     @Override
     public List<MovieDto> getTitle(String title) {
+        List<Movie> m = movieRepository.findAllByGenre(title);
+
+        if (m.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No movie with title " +title + " registered in the database.");
+        }
         return movieMapper.mapp(movieRepository.findByTitle(title));
     }
 
     @Override
     public List<MovieDto> getAllByGenre(String genre) {
+        List<Movie> m = movieRepository.findAllByGenre(genre);
+
+        if (m.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No movies in " +genre + " registered in the database.");
+        }
         return movieMapper.mapp(movieRepository.findAllByGenre(genre));
     }
 
-    //POST MOVIE - 400 OK?
     @Override
     public MovieDto createMovie(MovieDto movie) {
         if (movie.getTitle().isEmpty())
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "No title entered. The movie is not saved to database.");
+                    "No specified title. The movie was not saved to the database.");
         //mappar från movieDto till Movieobjekt
         return movieMapper.mapp(movieRepository.save(movieMapper.mapp(movie)));
     }

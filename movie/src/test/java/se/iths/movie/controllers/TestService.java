@@ -1,4 +1,4 @@
-package se.iths.demo.controllers;
+package se.iths.movie.controllers;
 
 import se.iths.movie.dtos.MovieDto;
 import se.iths.movie.services.Service;
