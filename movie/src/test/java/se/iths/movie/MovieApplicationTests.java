@@ -69,7 +69,7 @@ class MovieApplicationTests {
     @Test
     void findTitleNotInDatabaseShouldThrowResponseStatusException404() {
         URI uri = UriComponentsBuilder.fromHttpUrl("http://localhost:" + port + "/movies").path("/titles")
-                .queryParam("title", "Hej").build().toUri();
+                .queryParam("title", "Game").build().toUri();
 
         var result = testClient.getForEntity(uri, MovieDto.class);
 
