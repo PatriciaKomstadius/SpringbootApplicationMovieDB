@@ -22,14 +22,12 @@ public class MovieService implements se.iths.movie.services.Service {
         this.movieMapper = movieMapper;
     }
 
-    //GET ONE
+
     @Override
     public Optional<MovieDto> getOne(Long id) {
-        //map from Movie to MovieDto
         return movieMapper.mapp(movieRepository.findById(id));
     }
 
-    //GET ALL
     @Override
     public List<MovieDto> getAllMovies() {
         return movieMapper.mapp(movieRepository.findAll());
@@ -37,7 +35,7 @@ public class MovieService implements se.iths.movie.services.Service {
 
     @Override
     public List<MovieDto> getTitle(String title) {
-        List<Movie> m = movieRepository.findAllByGenre(title);
+        List<Movie> m = movieRepository.findByTitle(title);
 
         if (m.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No movie with title " +title + " registered in the database.");
@@ -50,7 +48,7 @@ public class MovieService implements se.iths.movie.services.Service {
         List<Movie> m = movieRepository.findAllByGenre(genre);
 
         if (m.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No movies in " +genre + " registered in the database.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No movies in requested genre " +genre + " registered in the database.");
         }
         return movieMapper.mapp(movieRepository.findAllByGenre(genre));
     }
@@ -60,7 +58,6 @@ public class MovieService implements se.iths.movie.services.Service {
         if (movie.getTitle().isEmpty())
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "No specified title. The movie was not saved to the database.");
-        //mappar från movieDto till Movieobjekt
         return movieMapper.mapp(movieRepository.save(movieMapper.mapp(movie)));
     }
 

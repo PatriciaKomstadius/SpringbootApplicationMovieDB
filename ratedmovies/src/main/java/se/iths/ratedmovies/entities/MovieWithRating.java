@@ -3,6 +3,7 @@ package se.iths.ratedmovies.entities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MovieWithRating {
@@ -20,13 +21,11 @@ public class MovieWithRating {
                 }
             }
         }
-        for (Movie m : movies) {
             for (Rating r : ratings) {
                 if (id != r.getId()) {
                     return null;
                 }
             }
-        }
         return null;
     }
 
@@ -36,15 +35,13 @@ public class MovieWithRating {
         for (Movie m : movies) {
             for (Rating r : ratings) {
                 if (m.getId() == r.getId()) {
-                    object = m.getTitle() + r.getRating();
+                    object = m.getTitle() + " " + r.getRating();
                     list.add(object);
+                    Collections.sort(list);
                 }
             }
         }
-        for (String o : list) {
             return list;
-        }
-        return null;
     }
 
 

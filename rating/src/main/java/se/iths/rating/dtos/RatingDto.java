@@ -5,8 +5,6 @@ public class RatingDto {
     private long id;
     private double rating;
 
-    public RatingDto() {
-    }
 
     public RatingDto(long id, double rating) {
         this.id = id;

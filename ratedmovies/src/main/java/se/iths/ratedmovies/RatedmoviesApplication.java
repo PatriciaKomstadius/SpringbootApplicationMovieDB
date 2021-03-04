@@ -20,16 +20,6 @@ public class RatedmoviesApplication {
     }
 
 
-    /*
-    //Ev lägg i egen config klass
-    @Bean
-    @LoadBalanced //kör runt i listan av services för lastbalansering
-    public RestTemplate getRestTemplate(){
-        return new RestTemplate();
-        //RestTemplate för att göra anrop och hämta info
-        // från andra applikationer.
-    }*/
-
     @Bean
     @LoadBalanced
     RestTemplate restTemplate(RestTemplateBuilder builder) {

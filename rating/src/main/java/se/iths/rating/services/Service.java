@@ -7,21 +7,16 @@ import java.util.Optional;
 
 public interface Service {
 
-    //get one
+
     Optional<RatingDto> getOne(Long id);
 
-    // get all
     List<RatingDto> getAll();
 
-    //post
     RatingDto postRating(RatingDto rating);
 
-    //delete
     void deleteRating(Long id);
 
-    //patch
-    RatingDto updateRating(Long id, RatingDto ratingdto);
+    RatingDto updateRating(Long id, RatingDto ratingDto);
 
-    //put
     RatingDto replaceRating(Long id, RatingDto ratingDto);
 }

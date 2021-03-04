@@ -34,6 +34,7 @@ public class RaitingController {
     }
 
     @PostMapping("/ratings")
+    @ResponseStatus(HttpStatus.CREATED)
     public RatingDto create(@RequestBody RatingDto rating) {
         return service.postRating(rating);
     }

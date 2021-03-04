@@ -12,14 +12,14 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 //Autenticationmanagern validerar tokenet, men inte password osv.
-//Ej kopplat till en db här. Behövert endast tillgång till secretkeyn för valideringen
+//Ej kopplat till en db. Behövert endast tillgång till secretkeyn för valideringen
 @Component
 public class AuthenticationManager implements ReactiveAuthenticationManager {
 
     @Autowired
     private JWTUtil jwtUtil;
 
-    //autenticatemetod som
+
     @Override
     public Mono<Authentication> authenticate(Authentication authentication) {
         //en autenticatemetod som får in objektet auth med token i

@@ -11,7 +11,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
 import reactor.core.publisher.Mono;
 
-//Här authoriseras det, tillåtds att utföras
+//Autentifikation, tillåts att utföras
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfiguration {
@@ -30,12 +30,10 @@ public class SecurityConfiguration {
                 .formLogin().disable()
                 .csrf().disable()
                 .logout().disable() //behövs ej med tokens, existerar ej
-                //No session
                 .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
-                // Add custom security.
 
                 //validerar token: authenticationManager validerar att tokenet är giltigt, om giltigt
-                //skapas en springbootuser (Klass AurthenticationManager)
+                //skapas en springbootuser
                 .authenticationManager(this.authenticationManager)
                 //läser in headern: tillhandahåller användarens uppgifter, hämtar detta fr headern (ej db)
                 .securityContextRepository(this.securityContextRepository)
@@ -45,13 +43,13 @@ public class SecurityConfiguration {
                 )).accessDeniedHandler((swe, e) -> Mono.fromRunnable(() ->
                         swe.getResponse().setStatusCode(HttpStatus.FORBIDDEN))).and()
                 .authorizeExchange()
-                .pathMatchers("/auth/**").permitAll() //släppa in alla får att kunna ställa frågor
-                .pathMatchers(HttpMethod.GET, "/movies/**").permitAll() //tillåter GET av alla
-                .pathMatchers("/movies/**").hasRole("ADMIN") //annars adminbehörighet
-                .pathMatchers("/ratings/**").authenticated()
+                .pathMatchers("/auth/**").permitAll()
+                .pathMatchers(HttpMethod.GET, "/movies/**").permitAll()
+                .pathMatchers("/movies/**").hasRole("ADMIN")
+                .pathMatchers(HttpMethod.GET,"/ratings/**").authenticated()
                 .pathMatchers("/ratings/**").hasRole("ADMIN")
-                .pathMatchers("/ratedmovies/**").authenticated()
-                .anyExchange().authenticated() //för allt annat autenticated
+                .pathMatchers(HttpMethod.GET,"/ratedmovies/**").authenticated()
+                .anyExchange().authenticated()
                 .and().build();
     }
 }

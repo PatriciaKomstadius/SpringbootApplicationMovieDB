@@ -19,6 +19,7 @@ public class MovieController {
         this.service = service;
     }
 
+
     //GET ONE
     @GetMapping("/movies/{id}")
     public MovieDto one(@PathVariable Long id) {

@@ -20,7 +20,7 @@ public class RatedMoviesController {
     @Autowired
     RestTemplate restTemplate;
 
-    //VISAR ALLA FILMER MED RATINGS
+
     @GetMapping("/ratedmovies")
     @ResponseBody
     public List<String> getTitlesAndRatings() {
@@ -30,7 +30,6 @@ public class RatedMoviesController {
         return ratedMovies;
     }
 
-    //HÄMTAR EN TITEL OCH RATING
     @GetMapping("/ratedmovies/{id}")
     @ResponseBody
     public String getTitleAndRating(@PathVariable Long id) {
@@ -45,13 +44,13 @@ public class RatedMoviesController {
         }
     }
 
-    //GET RATINGS ONLY ta bort?
+    //GET ALL RATINGS ONLY (ta bort)
     @GetMapping("/ratedmovies/ratings")
     public String getRatings() {
         return restTemplate.getForObject("http://ratings-service/ratings", String.class);
     }
 
-    //GET MOVIES ONLY ta bort?
+    //GET ALL MOVIES ONLY (ta bort)
     @GetMapping("/ratedmovies/movies")
     public String getTitles() {
         return restTemplate.getForObject("http://movies-service/movies/", String.class);
