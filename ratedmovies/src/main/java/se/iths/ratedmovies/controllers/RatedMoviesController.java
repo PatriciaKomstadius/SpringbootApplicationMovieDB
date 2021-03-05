@@ -44,18 +44,6 @@ public class RatedMoviesController {
         }
     }
 
-    //GET ALL RATINGS ONLY (ta bort)
-    @GetMapping("/ratedmovies/ratings")
-    public String getRatings() {
-        return restTemplate.getForObject("http://ratings-service/ratings", String.class);
-    }
-
-    //GET ALL MOVIES ONLY (ta bort)
-    @GetMapping("/ratedmovies/movies")
-    public String getTitles() {
-        return restTemplate.getForObject("http://movies-service/movies/", String.class);
-    }
-
 }
 
 
